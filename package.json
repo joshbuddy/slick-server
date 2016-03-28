@@ -33,7 +33,7 @@
   "author": "Josh Hull",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "slick-io": "*",
+    "slick-io": "0.2.0",
     "aws-sdk": "2.2.32",
     "colors": "1.1.2",
     "commander": "2.9.0",

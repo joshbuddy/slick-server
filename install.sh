@@ -135,7 +135,7 @@ update_source() {
   (
     if [ ! -L "$SLICK_INSTALL_HOME/slick" ]; then
       rm -rf "$SLICK_INSTALL_HOME/slick"
-      git clone https://github.com/slick-io/slick.git "$SLICK_INSTALL_HOME/git"
+      git clone https://github.com/joshbuddy/slick-server.git "$SLICK_INSTALL_HOME/git"
     fi
     cd "$SLICK_INSTALL_HOME/git"
     git fetch origin
