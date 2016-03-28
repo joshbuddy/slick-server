@@ -1,0 +1,23 @@
+sudo: false
+language:
+  - node_js
+node_js:
+  - v4.3.1
+install:
+  - npm install
+script:
+  - make test-$TEST_SUITE
+env:
+  global:
+    - secure: PIW5u9cPY2fXEEPpHDC+XZfR9YFrHHiO852eCW0hh09yNlMM0gxbw/KdOKtPWv4Rzh3kVf6dghCm8il7WrC59qLfUAGek84N5/v2BdMEciONHG/9+XJkbozQ/2PCL9fvFYTafw1etHDUuNARvhSgBRPeIia2JMt2CJu+fPPfL7vJbGLWrQP0V9b2Y8m9qXVV03n8sRnqK9e8xMhCcBnDDODdwYLLS3FRxaVlW6rPvwYefKaZcAGfUhByVEZvTc9Z0hxpiCDIPDhsVrsl64P6S5Swa59BeJ/VQ/Rtjcnoe0KIWDixuLcStemrbJgAXM2C5usD0xnTg7Vrdn0xKQS8XDR2FUF7G8Njaa26LxJj7+L6VgXKhukwgh5Z7Ku6BNGWOZWuX65y5+vwMaCKdeDzU/4mZoJWVXcEbB6KLvrtLt8puIxGetKWpmse1xGbNstuamfvk+tnBd5S8AP7CElgZVdIDpX/Zln7plboVDqsFryxYbtfpJbTTwzeabv4bdKNher45y85I3zx3zkJg9PvGY6e8ywfVR8iDLKPzet87SQaX7QggTZVdvPwUAf1FyRkEE2RnrDYMg/l5uWwLQohG9WTzTegWWZwwpMb0R8T5g26ecRRKNsLvNCyEWbAcNDKkZsXVl9F4/aqauW9mK1rcQAoW0e6adLmnTu97Dso43k=
+  matrix:
+  - CC=clang CXX=clang++ npm_config_clang=1 TEST_SUITE=unit
+  - CC=clang CXX=clang++ npm_config_clang=1 TEST_SUITE=integration
+cache:
+  directories:
+    - node_modules
+addons:
+  apt:
+    packages:
+    - libfuse-dev
+    - fuse

@@ -1,0 +1,63 @@
+#!/usr/bin/env node
+
+var _ = require('lodash');
+var path = require('path');
+var fs = require('fs-extra');
+var colors = require('colors');
+var packageData = require('../package.json');
+
+var showHelp = function() {
+  console.log(`
+Slick - encrypted backup service
+
+    slick add <dest> <src>
+    slick cat <target
+    slick config
+    slick cp <src> <dest>
+    slick fetch <src> <dest>
+    slick help <cmd>
+    slick info <target>
+    slick ls <target>
+    slick mkdir <target>
+    slick mv <src> <dest>
+    slick ops [list]
+    slick ops cancel <id>
+    slick rm <target>
+    slick server
+    slick volumes [list]
+    slick volumes create
+    slick volumes destroy
+
+Use ${'slick help <cmd>'.bold} to get help on any command
+    `)
+}
+
+var slickPosition = _.findIndex(process.argv, function(item) {
+  return item.match(/\/bin\/slick$/);
+})
+
+if (slickPosition === -1) {
+  console.error("Count not parse arguments, exiting");
+  return process.exit(1);
+}
+
+var cmd = process.argv[slickPosition + 1];
+switch(cmd) {
+  case '-h':
+  case '--help':
+    showHelp();
+    process.exit(0);
+  case '-v':
+  case '--version':
+    console.log(packageData.version);
+    process.exit(0);
+  default:
+    process.argv = process.argv.slice(slickPosition);
+    var bin = path.join(__dirname, 'slick-' + cmd);
+    if (!fs.existsSync(bin)) {
+      console.error("command", cmd, "not found");
+      showHelp();
+      process.exit(1);
+    }
+    require(bin);
+}

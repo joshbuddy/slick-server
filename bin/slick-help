@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+var fs = require('fs-extra');
+var path = require('path');
+var program = require('commander');
+var spawn = require('child_process').spawn;
+
+program.parse(process.argv);
+
+var cmdValue = program.args[0];
+
+var manPath = path.resolve(path.join(__dirname, '..', 'man', 'man1', 'slick-' + (cmdValue || 'slick') + '.man.1'));
+
+if (fs.existsSync(manPath)) {
+  spawn('/usr/bin/man', [manPath], { stdio: 'inherit', customFds: [0, 1, 2] });
+} else {
+  console.error('no entry for', cmdValue);
+  process.exit(1);
+}
+
